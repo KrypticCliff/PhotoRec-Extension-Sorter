@@ -29,14 +29,12 @@ int main(int argc, char** argv) {
             // Iterates through SUB directory (Assuming filename recup_dir.#)
             for (; sub_begin != end; sub_begin++) {
                 // Remove "." from file extension
-                // If folder !exists, create folder called file_ext
-
                 std::string file_ext = sub_begin->path().extension().string();
                 file_ext.erase(0,1);
                 fs::path ext_p(file_ext);
                 //std::cout << sub_begin->path().extension().string() << "\n";
 
-                // Check if extension directory exists
+                // If folder !exists, create folder called file_ext
                 if (!fs::exists(ext_p)) {
                     fs::create_directory(ext_p);
                 }
