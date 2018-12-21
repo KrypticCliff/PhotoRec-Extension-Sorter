@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
 
     std::cout << "Location: " << argv[1] << "\n";
     fs::path p(argv[1]);
+    fs::path cur_p("./");
     fs::directory_iterator root_begin(p), end;
 
 //  Checks if directory path is a directory
@@ -20,35 +21,44 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    try {
-        // Iterates through ROOT directory
-        for (; root_begin != end; root_begin++) {
-            std::cout << root_begin->path().string() << "\n";
-            fs::directory_iterator sub_begin(root_begin->path());
+    // Iterates through ROOT directory
+    for (; root_begin != end; root_begin++) {
+        //std::cout << root_begin->path().string() << "\n";
+        fs::directory_iterator sub_begin(root_begin->path());
 
-            // Iterates through SUB directory (Assuming filename recup_dir.#)
-            for (; sub_begin != end; sub_begin++) {
-                // Remove "." from file extension
-                std::string file_ext = sub_begin->path().extension().string();
-                file_ext.erase(0,1);
-                fs::path ext_p(file_ext);
-                //std::cout << sub_begin->path().extension().string() << "\n";
+        // Iterates through SUB directory (Assuming filename recup_dir.#)
+        for (; sub_begin != end; sub_begin++) {
+            std::string file_name = sub_begin->path().filename().string();
+            std::string file_ext  = sub_begin->path().extension().string();
 
-                // If folder !exists, create folder called file_ext
-                if (!fs::exists(ext_p)) {
-                    fs::create_directory(ext_p);
+            // Remove "." from file extension
+            file_ext.erase(0,1);
+
+            // Test statement
+            std::cout << sub_begin->path() << "\n";
+
+            // If folder !exists, create folder extension folder
+            if (!fs::exists(p/file_ext)) {
+                fs::create_directory(p/file_ext);
+            }
+
+            // file_d "backup_path/name_of_ext/filename"
+            // file_s iterated file 
+            fs::path file_dest(p/file_ext/file_name);
+            fs::path file_src(sub_begin->path());
+
+            fs::copy(file_src, file_dest);
+
+/*            fs::directory_iterator inner_sub_p("./");
+            for (; inner_sub_p != end; inner_sub_p++) {
+                std::string sub_file_name = inner_sub_p->path().extension().string();
+                if (file_ext == sub_file_name) {
+
                 }
-                else {
-                    continue;
-                }
+            }
+*/
 
-
-            } // For Loop 1
-
-        } // For Loop 2
-
-    } // Try
-    catch (int e) {
-        std::cout << "An exception has occurred: " << e << "\n";
-    }
+            //fs::rename(sub_begin->path(),)
+        } // For Loop 1
+    } // For Loop 2
 } // Main
