@@ -9,7 +9,6 @@
 
 namespace fs = boost::filesystem;
 
-
 // Function checks if file exists, if so iterate name i.e. file_1, file_2.
 fs::path file_exists(fs::path p, std::string ext, std::string file_name) {
     fs::path file_dest(p/ext/file_name);
