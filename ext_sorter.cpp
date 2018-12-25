@@ -1,6 +1,6 @@
 /*
     Current issues: Duplicate Files may add additional "_#" tags on name.
-    Files within sub_begin will not be accounted for and
+    Folders within sub_begin will not be accounted for and
     may cause issues.
 */
 
