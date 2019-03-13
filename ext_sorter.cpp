@@ -1,4 +1,7 @@
 /*
+    Created By Clifton A. Rawlings
+    Timestamp: December 24, 2018
+
     Current issues: Duplicate Files may add additional "_#" tags on name.
     Folders within sub_begin will not be accounted for and
     may cause issues.
